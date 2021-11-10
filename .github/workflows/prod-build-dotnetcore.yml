@@ -1,4 +1,4 @@
-name: .NET Core-Build and Test
+name: .NET Ajay
 env:
   registry: openhack93o3sbc2acr.azurecr.io
   registryurl: https://openhack93o3sbc2acr.azurecr.io/
@@ -11,8 +11,8 @@ env:
   resource_group: openhack93o3sbc2rg
 
 on:
-  push
- 
+  push   
+  
 jobs:
   build:
 
@@ -23,7 +23,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.415
+        dotnet-version: 2.1.301
     - name: Install dependencies
       run: dotnet restore ./apis/poi/poi.sln
     - name: Build
@@ -52,7 +52,6 @@ jobs:
       run: docker push $registry/$repository:${{github.run_number}}  
 
     - uses: actions/github-script@0.9.0
-    
       if: failure()
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
@@ -76,10 +75,10 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS  }}
         
     - name: Azure CLI Start Staging Slot
-      uses: Azure/CLI@v1
-      with:
-       azcliversion: 2.0.72
-       inlineScript: az webapp start --name $webapp_name --resource-group $resource_group --slot staging
+      uses: azure/CLI@v1
+	    with:
+	    azcliversion: 2.0.72
+      inlineScript: az webapp start --name $webapp_name --resource-group $resource_group --slot staging
       
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
