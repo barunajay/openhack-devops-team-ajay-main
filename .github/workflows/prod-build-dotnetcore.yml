@@ -200,9 +200,6 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS  }}
         
     - name: Azure CLI Start Staging Slot
-      uses: Azure/CLI@v1
-      with:
-       azcliversion: 2.0.72
-       inlineScript: az webapp stop --name $webapp_name --resource-group $resource_group --slot staging
+      run: az webapp stop --name $webapp_name --resource-group $resource_group --slot staging
           
      
