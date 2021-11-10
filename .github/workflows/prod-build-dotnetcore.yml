@@ -74,6 +74,9 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS  }}
         
+    - name: Azure Container Registry Login
+      run: docker login $registry -u ${{ secrets.ACR_USER }} -p ${{ secrets.ACR_KEY }}
+        
     - name: Azure CLI Start Staging Slot
       run: az webapp start --name $webapp_name --resource-group $resource_group --slot staging
         
